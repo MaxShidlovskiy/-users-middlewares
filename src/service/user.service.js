@@ -29,7 +29,7 @@ function createUser(name, surname, email, pwd) {
 function updateUserById(id, name, surname, email, pwd) {
     const array = JSON.parse(fs.readFileSync(path));
     const filtered = array.filter(el => el.id != id)
-    if(array.length == filtered.length) throw new Error(`id is not a found`)
+    if (array.length == filtered.length) throw new Error(`id is not a found`)
     const obj = {
         id: array.length + 1,
         name: name,
@@ -42,9 +42,11 @@ function updateUserById(id, name, surname, email, pwd) {
     return filtered
 }
 
-module.exports = {
-    getAllUsers,
-    getUserById,
-    createUser,
-    updateUserById
-}
+function deleteUser(id) {
+    const arr = JSON.parse(fs.readFileSync(path));
+    const filtered = arr.filter(el => el.id != id);
+    fs.writeFileSync(path, JSON.stringify(filtered));
+    return filtered;
+};
+
+module.exports = { getAllUsers, getUserById, createUser, updateUserById, deleteUser }
