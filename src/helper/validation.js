@@ -17,5 +17,13 @@ function isValidUserData(req, res, next) {
     next()
 }
 
+function isValidUserId(req, res, next) {
+    const { id } = req.params;
 
-module.exports = { isValidUserData };
+    if (!id) throw new Error('You didnt pass id');
+    if (isNaN(id)) throw new Error('id is not a number');
+
+    next();
+}
+
+module.exports = { isValidUserData, isValidUserId };
