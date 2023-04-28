@@ -24,14 +24,16 @@ route.post(`/`, isValidUserData, (req, res) => {
     res.send(data)
 })
 
-route.put(`/:id`, isValidUserData, (req, res) => {
-    const {
-        id
-    } = req.params;
-    const { name, surname, email, pwd } = req.body;
-    const data = updateUserById(id, name, surname, email, pwd)
-    res.send(data)
-})
+router.put('/:id', isValidUserData, isValidUserId, (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, surname, email, pwd } = req.body;
+        const data = updateUser(id, name, surname, email, pwd);
+        buildResponse(res, data, 200);
+    } catch (error) {
+        buildResponse(res, error.message, 404);
+    };
+});
 
 router.delete('/:id', isValidUserId, (req, res) => {
     const { id } = req.params;
