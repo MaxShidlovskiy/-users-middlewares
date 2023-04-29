@@ -36,9 +36,13 @@ router.put('/:id', isValidUserData, isValidUserId, (req, res) => {
 });
 
 router.delete('/:id', isValidUserId, (req, res) => {
-    const { id } = req.params;
-    const data = deleteUser(id);
-    buildResponse(res, data, 200);
+    try {
+        const { id } = req.params;
+        const data = deleteUser(id);
+        buildResponse(res, data, 200);
+    } catch (error) {
+        buildResponse(res, error.message, 404);
+    };
 });
 
 
