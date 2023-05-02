@@ -10,7 +10,7 @@ route.get(`/`, (req, res) => {
   res.send(data);
 });
 
-route.get(`/:id`, (req, res) => {
+route.get(`/:id`, getUserById, (req, res) => {
   const { id } = req.params;
   const data = getUserById(id);
   res.send(data);
